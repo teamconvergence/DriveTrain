@@ -1,42 +1,45 @@
-<xml version="1.0">
-<dashboard>
-	<widget field="LimelightArea" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="216"/>
-	</widget>
-	<widget field="LimelightY" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="196"/>
-	</widget>
-	<widget field="LimelightX" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="176"/>
-	</widget>
-	<widget field="Auto choices" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="0" y="113"/>
-	</widget>
-	<widget field="Auto Selector" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="93"/>
-	</widget>
-	<widget field="Limelight_Stream" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="73"/>
-	</widget>
-	<widget field="Limelight_Interface" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="53"/>
-	</widget>
-	<widget field="Limelight_PipelineName" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="33"/>
-	</widget>
-	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.ConnectionIndicator">
-		<location x="0" y="0"/>
-	</static-widget>
-</dashboard>
-<live-window>
-	<widget field="Ungrouped" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
-		<location x="0" y="44"/>
-	</widget>
-	<widget field="DriveTrain" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
-		<location x="0" y="22"/>
-	</widget>
-	<widget field="LimelightCamera" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
-		<location x="0" y="0"/>
-	</widget>
-</live-window>
-</xml>
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
+
+package frc.robot;
+
+import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+
+/**
+ * Add your docs here.
+ */
+public class DriveTrain extends Subsystem {
+  // Put methods for controlling this subsystem
+  // here. Call these from Commands.
+
+  // Motors for DriveTrain
+  public Spark leftDrive1 = new Spark(RobotMap.p_leftDrive1);
+//   public Spark leftDrive2 = new Spark(RobotMap.p_leftDrive2);
+  public Spark rightDrive1 = new Spark(RobotMap.p_rightDrive1);
+//   public Spark rightDrive2 = new Spark(RobotMap.p_rightDrive2);
+
+  // Left and Right sides for DriveTrain
+  public SpeedControllerGroup left = new SpeedControllerGroup(leftDrive1);
+  public SpeedControllerGroup right = new SpeedControllerGroup(rightDrive1);
+
+  // The DriveTrain drive
+  public DifferentialDrive drive1 = new DifferentialDrive(left, right);
+
+  @Override
+  public void initDefaultCommand() {
+    // Set the default command for a subsystem here.
+    // setDefaultCommand(new MySpecialCommand());
+  }
+
+  public void arcadeDrive(double i, double j) {
+    drive1.arcadeDrive(i, j);
+  }
+
+}
